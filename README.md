@@ -82,6 +82,14 @@ Example policy
 ```
 
 * Edit frontend/src/component/Upload.js. Replace AWS_REGION, ACCESS_KEY and SECRET variables at top as per the iAM user's credentials created above and region.
+
+Example
+```
+let AWS_REGION = 'XXXXXXXX';
+let ACCESS_KEY = "AK_XXXXX";
+let SECRET = "SK_XXXXXXXX";
+```
+
 * Change directory to frontend
 * Install dependencies with ```npm install```
 * Run ```npm start``` to start and test the frontend locally.
