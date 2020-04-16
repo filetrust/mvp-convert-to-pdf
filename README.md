@@ -35,7 +35,7 @@ It uses a lambda to invoke libre-office and converts documents
 
 The nodejs lambda is fully functional for now.
 
-####Build Steps
+**Build Steps**
 
 * Download lo.zip from https://lambda-libreoffice-demo-aa1.s3.amazonaws.com/lo.zip and upload it to S3
 * Provide public read permissions to it.
@@ -50,7 +50,7 @@ var s3Bucket                                        = 'lambda-libreoffice-demo-a
 * Pack the resultant handler.js and the node_modules directory in a zip.
 
 
-####Deployment Steps
+**Deployment Steps**
 
 * Create a Lmabda function in AWS
 * Keep maximum possible timeout (15 mins) and memory
@@ -62,7 +62,7 @@ var s3Bucket                                        = 'lambda-libreoffice-demo-a
 
 ### Frontend
 
-####Build Steps
+**Build Steps**
 
 * Create a AWS programmatic access user with permission to execute the lambda create during backend deployment. 
 Example policy
@@ -95,6 +95,6 @@ let SECRET = "SK_XXXXXXXX";
 * Run ```npm start``` to start and test the frontend locally.
 * Run ```npm run-script build``` to create a deployment package in the build directory in frontend directory
 
-####Deployment Steps
+**Deployment Steps**
 
 * Copy the build directory contents to S3, Github pages or any place of choice and execute the front end.
