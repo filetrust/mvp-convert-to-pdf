@@ -33,12 +33,16 @@ It uses a lambda to invoke libre-office and converts documents
 
 ### Backend
 
-The nodejs lambda is fully functional for now.
+The nodejs and python lambdas are fully functional.
 
 **Build Steps**
 
 * Download lo.zip from https://lambda-libreoffice-demo-aa1.s3.amazonaws.com/lo.zip and upload it to S3
 * Provide public read permissions to it.
+
+**Build Node.js Lambda**
+
+
 * Change the following properties in backend/node/src/handler.js as per deployment
 
 ```
@@ -49,6 +53,17 @@ var s3Bucket                                        = 'lambda-libreoffice-demo-a
 * Run "npm install" from backend/node/src directory.
 * Pack the resultant handler.js and the node_modules directory in a zip.
 
+**Build Python Lambda**
+
+* Change the following properties in backend/py/src/lambda.py as per deployment
+
+```
+REGION                                              = 'us-east-1'
+S3BUCKET                                            = 'lambda-libreoffice-demo-aa1'
+```
+
+* Copy the lambda.py codebase in the lambda with inline code editor.
+
 
 **Deployment Steps**
 
@@ -56,7 +71,7 @@ var s3Bucket                                        = 'lambda-libreoffice-demo-a
 * Keep maximum possible timeout (15 mins) and memory
 * Upload the code base zip 
 * Name the lambda handler as handler.handler
-* Keep runtime as Node.js 10.X 
+* Keep runtime as Node.js 10.X (for node.js lambda) or Python 3.8 (for python lambda) 
 * Name the function convert-to-pdf
 * Save it
 

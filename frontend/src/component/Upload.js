@@ -7,9 +7,11 @@ import CommonServices from '../services/common/common';
 const Loader = new CommonServices();
 
 
-let AWS_REGION = 'XXXXXXXX';
-let ACCESS_KEY = "AK_XXXXX";
-let SECRET = "SK_XXXXXXXX";
+let AWS_REGION = 'XXXX';
+let ACCESS_KEY = "XXXX";
+let SECRET = "XXXX";
+
+
 
 class Upload extends React.Component {
 
@@ -17,6 +19,8 @@ class Upload extends React.Component {
         super(props);
         this.state = {}
     }
+
+   
 
     getPDFUrl = (data, uploadResult) => {
         Loader.showLoader();
@@ -55,6 +59,8 @@ class Upload extends React.Component {
     }
 
 
+
+    
     uploadResult = (data, self) => {
 
         if (data) {
@@ -93,20 +99,22 @@ class Upload extends React.Component {
         return (
             <div className="container">
                 <div className="row">
+                    <div className="upload-btn">
                     <label>Upload a File to Convert to PDF</label>
-                    <div  className="uploade-file">
-                    <div className="col">
-                        <input type="file" name="photo"
-                            id="fileupload"
-                            onChange={this.UploadHandler.bind(this)} 
+                    <div className="uploade-file">
+                        <div className="col">
+                            <input type="file" name="photo"
+                                id="fileupload"
+                                onChange={this.UploadHandler.bind(this)}
                             />
-                    </div>
+                        </div>
                     </div>
                     <button className="submit">Upload!</button>
                 </div>
+                </div>
             </div>
         );
-        }
+    }
 
 
 
