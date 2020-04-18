@@ -1,0 +1,6 @@
+
+//Loading
+export const API_FETCH_START = 'API_FETCH_START';
+export const API_FETCH_COMPLETE = 'API_FETCH_COMPLETE';
+export const SET_INITIAL_STATE = 'SET_INITIAL_STATE';
+
