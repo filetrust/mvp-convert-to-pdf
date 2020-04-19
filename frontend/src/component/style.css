@@ -4,6 +4,9 @@
 * {
     box-sizing: border-box;
 }
+ul, li{
+ list-style: none;
+}
 .container {
     display: flex;
     height: 100vh;
@@ -14,15 +17,22 @@
     text-align: center;
     color: #4285f4;
 }
-.row {
+/* .row {
     width: 750px;
+} */
+.row {
+    width: 100%;
+}
+.col-6 {
+    width: 50%;
+    float: left;
 }
 .row label {
     float: left;
     width: 100%;
     text-align: center;
     font-size: 39px;
-    margin-bottom: 50px;
+    margin: 20px 0 30px 0;
     color: #333;
 }
 .uploade-file {
@@ -49,14 +59,21 @@
     font-size: 16px;
     font-weight: 500;
 }
+.upload-btn {
+    width: 750px;
+    margin: 0px auto;
+}
 .col {
     width: 100%;
 }
 .col ul{
     list-style: none;
 }
+.prevSection{
+
+    padding: 10px;
+}
 .downloadLink {
-    float: left;
     width: 100%;
     text-align: left;
 }
@@ -70,11 +87,12 @@
 }
 .downloadIcon {
     float: right;
+    font-size: 16px;
 }
 .downloadLink {
     float: left;
     border-bottom: 1px solid #ccc;
-    padding: 10px 0;
+    padding: 10px;
 }
 .downloadLink img {
     float: left;
@@ -86,12 +104,10 @@
     background:  no-repeat #ebc50c 11px center;
     border: none;
     color: #fff;
-    padding: 10px 10px 10px 50px;
+    padding: 10px 20px;
     border-radius: 2px;
     cursor: pointer;
-    font-size: 16px;
-    font-weight: 500;
-
+    border-radius: 3px;
 }
 #fileupload {
     width: 100%;
@@ -104,4 +120,29 @@
     color: #000;
     font-weight: bold;
     font-size: 13px;
+}
+.downloadAsImage {
+    color: #fff;
+    border:none;
+    background-color: #003a8c;
+    border-radius: 3px;
+    padding: 10px 20px;
+    float: right;
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+.backBtn {
+    width: unset!important;
+}
+.the-canvas {
+    width: 100%;    
+}
+.canvas-container {
+    height: 100vh;
+    overflow-y: auto;
+}
+.backBtn img {
+    width: 23px;
+    margin-top: 7px;
 }
