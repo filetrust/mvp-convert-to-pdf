@@ -14,7 +14,7 @@ class DocumentPreview extends Component {
 
 
     return (
-      <div>
+      <div className="pdfPreview">
         <object width="100%" height="500" data={url} type="application/pdf">   </object>
       </div>
     );

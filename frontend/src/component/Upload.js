@@ -1,11 +1,11 @@
 import React from 'react';
 import './style.css'
 import * as Utils from '../utils/utils.js'
-
 import CommonServices from '../services/common/common';
+import SampleLinks from './SampleLinks'
+
 
 const Loader = new CommonServices();
-
 
 let AWS_REGION = 'XXXX';
 let ACCESS_KEY = "XXXX";
@@ -107,9 +107,43 @@ class Upload extends React.Component {
                                 id="fileupload"
                                 onChange={this.UploadHandler.bind(this)}
                             />
-                        </div>
+                        </div>                        
                     </div>
-                    <button className="submit">Upload!</button>
+                    <div className="file-type-list">
+                        <ul>
+                            <li>doc</li>
+                            <li>docx</li>
+                            <li>ppt</li>
+                            <li>pptx</li>
+                            <li>xls</li>
+                            <li>xlsx</li>
+                            <li>numbers</li>
+                            <li>pages</li>
+                            <li>key</li>
+                            <li>csv</li>
+                            <li>txt</li>
+                            <li>odt</li>
+                            <li>ods</li>
+                            <li>odt</li>
+                            <li>odp</li>
+                            <li>html</li>
+                            <li>rtf</li>
+                            <li>xlt</li>
+                            <li>psd</li>
+                            <li>bmp</li>
+                            <li>png</li>
+                            <li>xml</li>
+                            <li>svg</li>
+                            <li>cdr</li>
+                            <li>eps</li>
+                            <li>psw</li>
+                            <li>dot</li>
+                            <li>tiff</li>
+                            <li><i>and more</i></li>
+                        </ul>            
+                        </div>
+                        <SampleLinks/>
+                    {/* <button className="submit">Upload!</button> */}
                 </div>
                 </div>
             </div>

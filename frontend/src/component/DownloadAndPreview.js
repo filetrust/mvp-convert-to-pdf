@@ -86,26 +86,25 @@ class DownloadAndPreview extends React.Component {
 
         return (
             <React.Fragment>
-
+                    
+                    {/* <label>Download and Preview File </label> */}
                 <div className="col-6">
-                    <label>Download and Preview File </label>
                     <ul>
                         <li>
                             <div className="downloadLink">
                                 <Link to="/" className="backBtn"><img src={BackBtn} alt="Back"/></Link>                                
-                                <button className="downloadAsImage" onClick={this.downloadAndRenderImage}>Preview & Export as Image</button>
                                 <button className="downloadIcon" onClick={this.downloadPDF}>Export as PDF</button>
                             </div>
                         </li>
                         <li>
-                            <div className="prevSection">
                             <DocumentPreview url={this.state.url}></DocumentPreview>
-                            </div>
                         </li>                        
                     </ul>
                     </div>
                     <div className="col-6">
                         <div className="canvas-container">
+                            
+                        <button className="downloadAsImage" onClick={this.downloadAndRenderImage}>Preview & Export as Image</button>
                             <canvas id="the-canvas" className="the-canvas"></canvas>
                         </div>
                     </div>

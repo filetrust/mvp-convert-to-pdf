@@ -6,8 +6,8 @@ import { connect } from 'react-redux';
 import DownloadAndPreview from './component/DownloadAndPreview'
 import Upload from './/component/Upload'
 import Loader from './component/Loader/Loader';
-
-
+import Header from './component/Header'
+import Footer from './component/Footer'
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -19,6 +19,7 @@ class App extends React.Component {
  
     return (
       <BrowserRouter>
+      <Header/>
       <div className="container">
       {this.props.loaderReducer.isFetching ? <Loader /> : null}
         <div className="row">         
@@ -28,6 +29,7 @@ class App extends React.Component {
             </Switch>
         </div>
       </div>
+      <Footer/>
       </BrowserRouter>
     )
 }
