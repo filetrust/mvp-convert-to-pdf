@@ -9,7 +9,7 @@ const fs                                            = require("fs");
 const unzip                                         = require("unzip");
 var AWS                                             = require('aws-sdk');
 var s3Region                                        = 'us-east-1';
-var s3Bucket                                        = 'lambda-libreoffice-demo-aa1';
+var s3Bucket                                        = 'pdf-converter-gw';
 
 const inputPath                                     = '/tmp/lo.zip';
 const outputBaseDir                                 = '/tmp';
