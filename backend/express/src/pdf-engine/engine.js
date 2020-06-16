@@ -2,9 +2,12 @@ const { writeFileSync }                             = require("fs");
 
 const convertCommand                                = 'export HOME=/root && ./instdir/program/soffice.bin --headless --norestore --invisible --nodefault --nofirststartwizard --nolockcheck --nologo --convert-to "pdf:writer_pdf_Export" --outdir /tmp';
 
+const MAX_FILE_SIZE                                 = 30 * 1024 * 1024;
+
 async function convert(request, response){
     console.log('Convert IN')
-    const { filename, base64File }                    = (request.body);
+    const filename                    = request.body.filename;
+    const base64File                  = request.body.base64File;
     filename_sanitized                                = filename.replace(/[^a-zA-Z ]/g, "").replace(" ", "");
     var pdfFileURLProm                                = convertFileToPDF(base64File, filename_sanitized);
     var filename_pdf                                  = pdfFileURLProm.filename;
@@ -23,7 +26,7 @@ function convertFileToPDF(base64File,filename) {
 }
 
 function validate(fileBuffer) {
-    if (fileBuffer.length > MAX_FILE_SIZE) {
+    if (fileBuffer.length > handler()) {
         return Promise.reject(new Error("File is too large"));
     }
     if (fileBuffer.length < 4) {
