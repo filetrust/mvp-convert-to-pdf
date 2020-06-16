@@ -26,7 +26,7 @@ function convertFileToPDF(base64File,filename) {
 }
 
 function validate(fileBuffer) {
-    if (fileBuffer.length > handler()) {
+    if (fileBuffer.length > MAX_FILE_SIZE) {
         return Promise.reject(new Error("File is too large"));
     }
     if (fileBuffer.length < 4) {
