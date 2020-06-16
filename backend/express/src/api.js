@@ -56,7 +56,7 @@ class Server {
 
     start() {
         const port = this.app.get('port')
-        this.server = http.createServer(null, this.app).listen(port, function() {
+        this.server = http.createServer(this.app).listen(port, function() {
             console.log('Express HTTP server listening on port ' + port);
         });
         return this
