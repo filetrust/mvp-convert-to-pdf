@@ -1,5 +1,5 @@
 const { writeFileSync }                             = require("fs");
-
+const path                                          = require("path");
 const convertCommand                                = 'export HOME=/root && ./instdir/program/soffice.bin --headless --norestore --invisible --nodefault --nofirststartwizard --nolockcheck --nologo --convert-to "pdf:writer_pdf_Export" --outdir /tmp';
 
 const MAX_FILE_SIZE                                 = 30 * 1024 * 1024;
