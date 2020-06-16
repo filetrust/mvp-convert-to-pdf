@@ -1,7 +1,8 @@
 const { writeFileSync }                             = require("fs");
+const { readFileSync }                              = require("fs");
 const path                                          = require("path");
 const { execSync }                                  = require("child_process");
-const convertCommand                                = 'export HOME=/root && ./instdir/program/soffice.bin --headless --norestore --invisible --nodefault --nofirststartwizard --nolockcheck --nologo --convert-to "pdf:writer_pdf_Export" --outdir /tmp';
+const libre                                         = require('libreoffice-convert');
 const REGEX_SAFE_FILE_NAME                          = /[^a-zA-Z0-9-_\.]/g
 
 const MAX_FILE_SIZE                                 = 30 * 1024 * 1024;
@@ -10,20 +11,18 @@ async function convert(request, response){
     const filename                                    = request.body.filename;
     const base64File                                  = request.body.base64File;
     filename_sanitized                                = sanitize_file_name(filename);
-    var pdfFileURLProm                                = convertFileToPDF(base64File, filename_sanitized);
-    var filename_pdf                                  = pdfFileURLProm.filename;
-    await response.status(200).download('/tmp/'+filename_pdf)
+    var pdfFileURLProm                                = convertFileToPDF(base64File, filename_sanitized,response);
 }
 
-function convertFileToPDF(base64File,filename) {
+function convertFileToPDF(base64File,filename, response) {
     const fileBuffer                                  = new Buffer(base64File, "base64");
     const fileError                                   = validate(fileBuffer);
     if (fileError) {
-        return                                          fileError;
+        response.status(400).download('File too big or too small')
+        return;
     }
     writeFileSync(`/tmp/${filename}`, fileBuffer);
-    const { pdfFilename, pdfFileBuffer }              = convertToPDF(filename);
-    return                                              {"filename" : pdfFilename, "fileBuffer" : pdfFileBuffer};
+    convertToPDF(filename,response);
 }
 
 function validate(fileBuffer) {
@@ -35,19 +34,25 @@ function validate(fileBuffer) {
     }
 }
 
-function convertToPDF(inputFilename) {
+function convertToPDF(inputFilename,response) {
     console.log('[convertToPDF]inputFilename - '+inputFilename);
-    const pdfFilename                                 = getPDFFilename(inputFilename);
-    const command                                     = 'chmod 777  /root/instdir/program/soffice.bin && cd /root && '+convertCommand+' /tmp/'+ inputFilename;
+    const pdfFilename                                   = '/tmp/'+getPDFFilename(inputFilename);
+    //const command                                     = 'chmod 777  /root/instdir/program/soffice.bin && cd /root && '+convertCommand+' /tmp/'+ inputFilename;
     try {
-        execSync(command);
+        const file = readFileSync('/tmp/'+inputFilename);
+        libre.convert(file, ".pdf", undefined, (err, done) => {
+            if (err) {
+                console.log(`Error converting file: ${err}`);
+                response.status(500).download('Processing error')
+                return;
+            }
+            writeFileSync(pdfFilename, done);
+            response.status(200).download(pdfFilename)
+        });
     } catch (e) {
-        execSync(command);
+        console.log('Error '+e.stack);
     }
     console.log('[converted]');
-    return {
-        pdfFilename
-    };
 }
 
 function getPDFFilename(inputFilename) {
