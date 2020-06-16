@@ -1,9 +1,9 @@
 const { writeFileSync }                             = require("fs");
-const { readFileSync }                              = require("fs");
 
 const convertCommand                                = 'export HOME=/root && ./instdir/program/soffice.bin --headless --norestore --invisible --nodefault --nofirststartwizard --nolockcheck --nologo --convert-to "pdf:writer_pdf_Export" --outdir /tmp';
 
 async function convert(request, response){
+    console.log('Convert IN')
     const { filename, base64File }                    = (request.body);
     filename_sanitized                                = filename.replace(/[^a-zA-Z ]/g, "").replace(" ", "");
     var pdfFileURLProm                                = convertFileToPDF(base64File, filename_sanitized);
@@ -53,5 +53,5 @@ function getPDFFilename(inputFilename) {
 
 
 module.exports = {
-    pool
+    convert
 }
