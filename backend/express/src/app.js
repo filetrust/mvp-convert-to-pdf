@@ -1,5 +1,5 @@
 var express                   = require('express');
-var Server                    = require('./Server');
+var Server                    = require('./api');
 
 const app = express()
 const server = new Server(app) .setup_server()
