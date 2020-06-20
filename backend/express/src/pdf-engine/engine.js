@@ -36,18 +36,20 @@ function validate(fileBuffer) {
 
 function convertToPDF(inputFilename,response) {
     console.log('[convertToPDF]inputFilename - '+inputFilename);
-    const pdfFilename                                   = '/tmp/'+getPDFFilename(inputFilename);
+    const pdfFilename                                   = getPDFFilename(inputFilename);
+    const pdfFilePath                                  = '/tmp/'+pdfFilename;
     //const command                                     = 'chmod 777  /root/instdir/program/soffice.bin && cd /root && '+convertCommand+' /tmp/'+ inputFilename;
     try {
         const file = readFileSync('/tmp/'+inputFilename);
         libre.convert(file, ".pdf", undefined, (err, done) => {
             if (err) {
                 console.log(`Error converting file: ${err}`);
-                response.status(500).download('Processing error')
+                response.status(500).send('Processing error')
                 return;
             }
-            writeFileSync(pdfFilename, done);
-            response.status(200).send({'filename' : filename_pdf,"base64file": Buffer.from(pdfBytes).toString('base64')})
+            writeFileSync(pdfFilePath, done);
+            const pdfBytes = readFileSync(pdfFilePath)
+            response.status(200).send({'filename' : pdfFilename, "base64file" : Buffer.from(pdfBytes).toString('base64')})
         });
     } catch (e) {
         console.log('Error '+e.stack);

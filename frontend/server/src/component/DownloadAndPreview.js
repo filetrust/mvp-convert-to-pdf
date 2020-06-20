@@ -15,21 +15,47 @@ class DownloadAndPreview extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            url: null,
+            data: null,
+            filename : null
             //showCss: false
         }
     }
 
     componentDidMount() {
-        let url = sessionStorage.getItem("pdfurl");
+        let sessiondata = sessionStorage.getItem("pdfData");
         this.setState({
-            url: url
+            filename    : sessiondata.filename,
+            data        : sessiondata.base64file
         })
     }
 
     downloadPDF = () => {
-        window.open(this.state.url, '_blank');
+        //window.open(this.state.url, '_blank');
+        var filename    = this.state.filename;
+        var base64file  = this.state.base64file;
+        var filebytes   = base64ToArrayBuffer(base64file)
+        saveByteArray(filename,filebytes)
     }
+
+    function base64ToArrayBuffer(base64) {
+        var binaryString = window.atob(base64);
+        var binaryLen = binaryString.length;
+        var bytes = new Uint8Array(binaryLen);
+        for (var i = 0; i < binaryLen; i++) {
+           var ascii = binaryString.charCodeAt(i);
+           bytes[i] = ascii;
+        }
+        return bytes;
+     }
+
+     function saveByteArray(reportName, byte) {
+        var blob = new Blob([byte], {type: "application/pdf"});
+        var link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        var fileName = reportName;
+        link.download = fileName;
+        link.click();
+    };
 
     downloadAndRenderImage = () => {
         Loader.showLoader();

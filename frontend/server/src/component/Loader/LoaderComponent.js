@@ -13,7 +13,7 @@ class LoaderComponent extends Component {
   }
   componentDidMount()
    {
-      setTimeout(() => this.setState({loading: false}), 3000)
+      setTimeout(() => this.setState({loading: false}), process.env.CLIENT_PORT)
    }
 
 

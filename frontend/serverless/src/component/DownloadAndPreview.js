@@ -15,21 +15,20 @@ class DownloadAndPreview extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: null,
+            url: null,
             //showCss: false
         }
     }
 
     componentDidMount() {
-        let data = sessionStorage.getItem("pdfData");
+        let url = sessionStorage.getItem("pdfurl");
         this.setState({
-            data: data
+            url: url
         })
     }
 
     downloadPDF = () => {
-        //window.open(this.state.url, '_blank');
-
+        window.open(this.state.url, '_blank');
     }
 
     downloadAndRenderImage = () => {

@@ -3,12 +3,15 @@ import './style.css'
 import * as Utils from '../utils/utils.js'
 import CommonServices from '../services/common/common';
 import SampleLinks from './SampleLinks'
-import axios from 'axios'
 
 
 const Loader = new CommonServices();
 
-const SERVER_URL = 'http://'+process.env.API_HOST+":"+process.env.API_PORT+"/";
+let AWS_REGION = 'XXXX';
+let ACCESS_KEY = "XXXX";
+let SECRET = "XXXX";
+
+
 
 class Upload extends React.Component {
 
@@ -22,30 +25,54 @@ class Upload extends React.Component {
     getPDFUrl = (data, uploadResult) => {
         Loader.showLoader();
         let _self = this;
+        window.AWS.config.update({
+            region: AWS_REGION,
+            accessKeyId: ACCESS_KEY,
+            secretAccessKey: SECRET,
+            httpOptions: {
+                timeout: 3000000,
+                connectTimeout: 500000
+            }
+        });
+        var lambda = new window.AWS.Lambda();
         var params = {
             FunctionName: 'convert-to-pdf',
             Payload: JSON.stringify(data)
 
         };
-        axios.post(SERVER_URL+'convert' ,data)
-        .then(res => {
-            console.log('Result from api '+res);
-            console.log(res.data);
-            uploadResult(res.data, _self);
-            Loader.hideLoader();
-        }).catch(e){
-            alert("There was an error uploading file: ", err.message);
-            uploadResult(data, _self);
-            Loader.hideLoader();
-        }
+
+        var upload = lambda.invoke(params);
+        var promise = upload.promise();
+
+        promise.then(
+            function (data) {
+                uploadResult(data, _self);
+                Loader.hideLoader();
+            },
+            function (err) {
+                alert("There was an error uploading file: ", err.message);
+                uploadResult(data, _self);
+                Loader.hideLoader();
+            }
+        );
+
     }
+
+
 
     
     uploadResult = (data, self) => {
 
         if (data) {
-            sessionStorage.setItem("pdfData", pdfurl)
-            self.props.history.push("/download")
+            let payload = data.Payload;
+            let bodyObject = JSON.parse(payload);
+            if (typeof bodyObject === "string") {
+                bodyObject = JSON.parse(bodyObject);
+            }
+            if (typeof bodyObject.body !== "undefined") {
+                let convertedFileUrl = (bodyObject.body.pdfFileURL);
+                sessionStorage.setItem("pdfurl", convertedFileUrl)
+                self.props.history.push("/download")
             } else {
                 alert("There was an error in converting file to PDF: ");
             }
