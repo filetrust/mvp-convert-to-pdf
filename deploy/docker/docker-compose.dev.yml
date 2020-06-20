@@ -1,11 +1,11 @@
-version: '0.1'
+version: '3.3'
 services:
   client:
     container_name: pdf-converter-client
     image: pdf-converter:client
     build:
       context: ./../../frontend/server
-      dockerfile: ../deploy/docker/client/Dockerfile
+      dockerfile: ../../deploy/docker/client/Dockerfile
     volumes:
       - $PWD/../../frontend/server:/home/node/src
     depends_on:
@@ -19,7 +19,7 @@ services:
     image: pdf-converter:api
     build:
       context: ./../../backend/express
-      dockerfile: ../deploy/docker/api/Dockerfile
+      dockerfile: ../../deploy/docker/api/Dockerfile
     volumes:
       - $PWD/../../backend/express/src:/home/node/src
     ports:
