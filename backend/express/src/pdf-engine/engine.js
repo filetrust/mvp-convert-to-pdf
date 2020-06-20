@@ -47,7 +47,7 @@ function convertToPDF(inputFilename,response) {
                 return;
             }
             writeFileSync(pdfFilename, done);
-            response.status(200).download(pdfFilename)
+            response.status(200).send({'filename' : filename_pdf,"base64file": Buffer.from(pdfBytes).toString('base64')})
         });
     } catch (e) {
         console.log('Error '+e.stack);

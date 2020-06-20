@@ -1,0 +1,247 @@
+*:focus{
+    outline: none;
+}
+* {
+    box-sizing: border-box;
+}
+ul, li{
+ list-style: none;
+}
+.container {
+    display: flex;
+    min-height: calc(100vh - 222px);
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    color: #4285f4;
+}
+/* .row {
+    width: 750px;
+} */
+.row {
+    width: 100%;
+}
+.col-6 {
+    width: 50%;
+    float: left;
+}
+.row label {
+    float: left;
+    width: 100%;
+    text-align: center;
+    font-size: 39px;
+    margin: 20px 0 15px 0;
+    color: #333;
+}
+.uploade-file {
+    float: left;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius:30px;
+    margin-bottom: 20px;
+    background: url(../images/uploadIcon.png) no-repeat calc(100% - 20px);
+    background-size: 30px;
+}
+.uploade-file:hover{
+    box-shadow:0 1px 6px 0 rgba(32,33,36,0.28)
+}
+.submit {
+    background: #d3b10b;
+    color: #fff;
+    border: none;
+    padding: 13px;
+    min-width: 200px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+}
+.upload-btn {
+    width: 750px;
+    margin: 40px auto 0px auto;
+}
+.col {
+    width: 100%;
+}
+.col ul{
+    list-style: none;
+}
+
+.downloadLink {
+    float: left;
+    padding: 5px 0;    
+    width: 100%;
+    text-align: left;
+}
+
+.downloadLink a {
+    color: #333;
+    text-decoration: none;
+    line-height: 30px;
+    width: calc(100% - 169px);
+    float: left;
+    font-size: 15px;
+}
+
+.downloadLink img {
+    float: left;
+    max-height: 30px;
+    margin-right: 5px;
+}
+
+.downloadIcon {
+    background: #0c3451;
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 3px;
+    cursor: pointer;  
+    float: right;
+    font-size: 13px;
+}
+#fileupload {
+    width: 100%;
+    height: 100%;
+    opacity: 0;    
+    padding: 15px;
+    cursor: pointer;
+}
+.back {
+    margin: 10px;
+    display: inline-block;
+    color: #000;
+    font-weight: bold;
+    font-size: 13px;
+}
+.downloadAsImage {
+    color: #fff;
+    border:none;
+    background-color: #003a8c;
+    border-radius: 3px;
+    padding: 10px 20px;
+    float: right;
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 13px;
+}
+.backBtn {
+    width: unset!important;
+    padding:1% 0;
+}
+.the-canvas {
+    width: 100%;    
+}
+.canvas-container {
+    overflow-y: auto;
+    overflow-x: auto;
+    margin-top: 20px;
+    padding: 5px 10px;
+}
+
+.backBtn img {
+    width: 23px;
+    margin-top: 7px;
+}
+.col-6 ul {
+    padding: 0;
+    margin: 20px 0 20px 20px;
+}
+
+header, footer {
+    background: linear-gradient(90deg, rgba(12,52,81,1) 35%, rgba(24,100,128,1) 100%);
+    padding: 5px 20px;
+}
+.logo {
+    width: 1100px;
+    margin: 0px auto;
+    max-width: 100%;
+}
+.file-type-list {
+    display: inline-block;
+    text-align: left;
+}
+.file-type-list ul {
+    padding: 0 10px;
+    display: inline-block;
+    margin: 0 0 10px 0;
+}
+.file-type-list li {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    color: rgba(0,0,0,.65);
+    font-size: 14px;
+    line-height: 1.5;
+    list-style: none;
+    display: inline-block;
+    height: auto;
+    margin: 0 8px 8px 0;
+    padding: 0 7px;
+    font-size: 12px;
+    line-height: 20px;
+    white-space: nowrap;
+    background: #fafafa;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+}
+.sample-links{
+    display:inline-block;
+    width: 100%;
+    padding-left: 10px;
+    margin-bottom: 50px;
+}
+.sample-links ul{
+    padding: 0;
+    width: 100%;
+    margin: 0;
+}
+.sample-links ul li {
+    float: left;
+    text-align: left;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    padding:15px 5px 15px 30px;
+    position: relative;
+}
+.sample-links ul li:hover {
+    background: #eee;
+}
+.sample-links ul li a {
+    float: left;    
+    color: #333;
+    padding: 0;
+    margin: 0;
+    line-height: 22px;
+    font-size: 15px;
+    text-decoration: none;
+    width: 100%;
+}
+.sample-links ul li span {
+    float: left;    
+    width: calc(100% - 35px);
+}
+.sample-links h2  {
+    float: left;
+    margin-top: 50px;
+    color: #186480;
+}
+.sample-links ul li i {
+    margin-left: 10px;
+    float: right;
+}
+.sample-links ul li:before {
+    content:url(../images/file.png);
+    position: absolute;
+    left: 5px;
+    top:15px;
+}
+
+.the-canvas {
+    width: 100%;
+    border: 3px solid #ccc;
+    margin:10px 0;
+    border-radius: 10px;
+    box-shadow: 0px 3px 6px #ccc;
+    margin-bottom: 20px;
+}

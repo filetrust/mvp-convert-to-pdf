@@ -38,9 +38,9 @@ class Server {
     add_error_handling_route() {
         this.app.use(function (req, res, next) {
             process.once('unhandledRejection', function(reason, p) {
-                console.log('************************ unhandledRejection ******************')
+				console.log('************************* -> Unhandled Promise Rejection <- *************************')
                 console.log(reason)
-                console.log('^^^^^^^^^^^^^^^^^^^^^^^^ unhandledRejection ^^^^^^^^^^^^^^^^^^')
+                console.log('************************* <- Unhandled Promise Rejection >- *************************')
                 if(!res.headersSent ) {
                     res.status(500)
                     res.send('Sorry an error has occured');
