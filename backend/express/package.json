@@ -1,5 +1,5 @@
 {
-  "name": "pdf-converter",
+  "name": "pdf-converter-api",
   "version": "0.0.0",
   "private": true,
   "scripts": {

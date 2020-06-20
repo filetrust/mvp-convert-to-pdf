@@ -33,11 +33,11 @@ class Upload extends React.Component {
             console.log(res.data);
             uploadResult(res.data, _self);
             Loader.hideLoader();
-        }).catch(e){
-            alert("There was an error uploading file: ", err.message);
+        }).catch(e => {
+            alert("There was an error uploading file: ", e.message);
             uploadResult(data, _self);
             Loader.hideLoader();
-        }
+        })
     }
 
     
@@ -46,13 +46,13 @@ class Upload extends React.Component {
         if (data) {
             sessionStorage.setItem("pdfData", data)
             self.props.history.push("/download")
-            } else {
+            }
+            else {
                 alert("There was an error in converting file to PDF: ");
             }
-
             Loader.hideLoader();
-        }
     }
+
 
     UploadHandler = async (event) => {
         let file = event.target.files[0];

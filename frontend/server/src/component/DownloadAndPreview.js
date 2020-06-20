@@ -19,7 +19,7 @@ class DownloadAndPreview extends React.Component {
             filename : null
             //showCss: false
         }
-    }
+    };
 
     componentDidMount() {
         let sessiondata = sessionStorage.getItem("pdfData");
@@ -27,17 +27,17 @@ class DownloadAndPreview extends React.Component {
             filename    : sessiondata.filename,
             data        : sessiondata.base64file
         })
-    }
+    };
 
     downloadPDF = () => {
         //window.open(this.state.url, '_blank');
         var filename    = this.state.filename;
         var base64file  = this.state.base64file;
-        var filebytes   = base64ToArrayBuffer(base64file)
-        saveByteArray(filename,filebytes)
-    }
+        var filebytes   = this.base64ToArrayBuffer(base64file);
+        this.saveByteArray(filename,filebytes);
+    };
 
-    function base64ToArrayBuffer(base64) {
+    base64ToArrayBuffer = (base64) => {
         var binaryString = window.atob(base64);
         var binaryLen = binaryString.length;
         var bytes = new Uint8Array(binaryLen);
@@ -46,9 +46,9 @@ class DownloadAndPreview extends React.Component {
            bytes[i] = ascii;
         }
         return bytes;
-     }
+     };
 
-     function saveByteArray(reportName, byte) {
+     saveByteArray = (reportName, byte) => {
         var blob = new Blob([byte], {type: "application/pdf"});
         var link = document.createElement('a');
         link.href = window.URL.createObjectURL(blob);
@@ -105,7 +105,7 @@ class DownloadAndPreview extends React.Component {
             console.error(reason);
             Loader.hideLoader();
         });
-    }
+    };
 
 
     render() {
@@ -118,25 +118,25 @@ class DownloadAndPreview extends React.Component {
                     <ul>
                         <li>
                             <div className="downloadLink">
-                                <Link to="/" className="backBtn"><img src={BackBtn} alt="Back"/></Link>                                
+                                <Link to="/" className="backBtn"><img src={BackBtn} alt="Back"/></Link>
                                 <button className="downloadIcon" onClick={this.downloadPDF}>Export as PDF</button>
                             </div>
                         </li>
                         <li>
                             <DocumentPreview url={this.state.url}></DocumentPreview>
-                        </li>                        
+                        </li>
                     </ul>
                     </div>
                     <div className="col-6">
                         <div className="canvas-container">
-                            
+
                         <button className="downloadAsImage" onClick={this.downloadAndRenderImage}>Preview & Export as Image</button>
                             <canvas id="the-canvas" className="the-canvas"></canvas>
                         </div>
                     </div>
             </React.Fragment>
         );
-    }
+    };
 
 
 
