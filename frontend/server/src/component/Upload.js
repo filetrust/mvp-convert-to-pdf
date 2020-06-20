@@ -8,36 +8,37 @@ import axios from 'axios'
 
 const Loader = new CommonServices();
 
-const SERVER_URL = 'http://'+process.env.API_HOST+":"+process.env.API_PORT+"/";
+const SERVER_URL = 'http://'+process.env.REACT_APP_API_HOST+":"+process.env.REACT_APP_API_PORT+"/";
 
 class Upload extends React.Component {
 
     constructor(props) {
         super(props);
+        console.log('process.env.API_HOST - '+process.env.REACT_APP_API_HOST)
         this.state = {}
     }
 
    
 
-    getPDFUrl = (data, uploadResult) => {
+    getPDFUrl = (filename, data, uploadResult) => {
         Loader.showLoader();
         let _self = this;
-        var params = {
-            FunctionName: 'convert-to-pdf',
-            Payload: JSON.stringify(data)
-
-        };
-        axios.post(SERVER_URL+'convert' ,data)
-        .then(res => {
+        let serverUrl = SERVER_URL+'convert';
+        let body = {"filename" : filename, "base64File" : data.body.base64File};
+        console.log('axios = '+serverUrl)
+        axios.post(serverUrl, body)
+        .then(function (res) {
             console.log('Result from api '+res);
             console.log(res.data);
-            uploadResult(res.data, _self);
+            this.uploadResult(res.data, _self);
             Loader.hideLoader();
-        }).catch(e => {
+        })
+        .catch(e => {
             alert("There was an error uploading file: ", e.message);
             uploadResult(data, _self);
             Loader.hideLoader();
         })
+        console.log('getPDFUrl OUT ')
     }
 
     
@@ -60,7 +61,8 @@ class Upload extends React.Component {
             //let id = "fileupload";
             await Utils.fileToBase64(file).then(data => {
                 console.log("content:" + data)
-                this.getPDFUrl(data, this.uploadResult);
+                let filename = file.name;
+                this.getPDFUrl(filename, data, this.uploadResult);
 
             })
 

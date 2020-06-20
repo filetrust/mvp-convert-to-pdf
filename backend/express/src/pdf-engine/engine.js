@@ -8,6 +8,7 @@ const REGEX_SAFE_FILE_NAME                          = /[^a-zA-Z0-9-_\.]/g
 const MAX_FILE_SIZE                                 = 30 * 1024 * 1024;
 
 async function convert(request, response){
+    console.log('Request Body - '+JSON.stringify(request.body))
     const filename                                    = request.body.filename;
     const base64File                                  = request.body.base64File;
     filename_sanitized                                = sanitize_file_name(filename);
@@ -35,7 +36,6 @@ function validate(fileBuffer) {
 }
 
 function convertToPDF(inputFilename,response) {
-    console.log('[convertToPDF]inputFilename - '+inputFilename);
     const pdfFilename                                   = getPDFFilename(inputFilename);
     const pdfFilePath                                  = '/tmp/'+pdfFilename;
     //const command                                     = 'chmod 777  /root/instdir/program/soffice.bin && cd /root && '+convertCommand+' /tmp/'+ inputFilename;
