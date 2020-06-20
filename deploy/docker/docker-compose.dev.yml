@@ -7,7 +7,7 @@ services:
       context: ./../../frontend/server
       dockerfile: ../../deploy/docker/client/Dockerfile
     volumes:
-      - $PWD/../../frontend/server:/home/node/src
+      - $PWD/../../frontend/server/src:/home/node/src
     depends_on:
       - "api"
     ports:
@@ -24,3 +24,4 @@ services:
       - $PWD/../../backend/express/src:/home/node/src
     ports:
       - "4443:4443"
+
