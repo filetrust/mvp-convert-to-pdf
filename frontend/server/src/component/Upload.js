@@ -29,13 +29,12 @@ class Upload extends React.Component {
         axios.post(serverUrl, body)
         .then(function (res) {
             console.log('Result from api '+res);
-            console.log(res.data);
-            this.uploadResult(res.data, _self);
+            uploadResult(res.data, _self);
             Loader.hideLoader();
         })
         .catch(e => {
-            alert("There was an error uploading file: ", e.message);
-            uploadResult(data, _self);
+            alert("There was an error uploading file: ", e.message)
+            console.log(e.stack);
             Loader.hideLoader();
         })
         console.log('getPDFUrl OUT ')
@@ -43,9 +42,9 @@ class Upload extends React.Component {
 
     
     uploadResult = (data, self) => {
-
+        console.log('uploadResult data - '+JSON.stringify(data));
         if (data) {
-            sessionStorage.setItem("pdfData", data)
+            sessionStorage.setItem("pdfData", JSON.stringify(data))
             self.props.history.push("/download")
             }
             else {

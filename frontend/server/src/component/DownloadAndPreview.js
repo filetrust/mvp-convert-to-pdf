@@ -22,7 +22,7 @@ class DownloadAndPreview extends React.Component {
     };
 
     componentDidMount() {
-        let sessiondata = sessionStorage.getItem("pdfData");
+        let sessiondata = JSON.parse(sessionStorage.getItem("pdfData"));
         this.setState({
             filename    : sessiondata.filename,
             data        : sessiondata.base64file
@@ -32,7 +32,7 @@ class DownloadAndPreview extends React.Component {
     downloadPDF = () => {
         //window.open(this.state.url, '_blank');
         var filename    = this.state.filename;
-        var base64file  = this.state.base64file;
+        var base64file  = this.state.data;
         var filebytes   = this.base64ToArrayBuffer(base64file);
         this.saveByteArray(filename,filebytes);
     };
@@ -59,7 +59,7 @@ class DownloadAndPreview extends React.Component {
 
     downloadAndRenderImage = () => {
         Loader.showLoader();
-        var loadingTask = pdfjsLib.getDocument(this.state.url);
+        var loadingTask = pdfjsLib.getDocument({data: atob(this.state.data)});
         loadingTask.promise.then(function (pdf) {
             console.log('PDF loaded');
 
