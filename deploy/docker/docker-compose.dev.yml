@@ -1,0 +1,27 @@
+version: '3.3'
+services:
+  client:
+    container_name: pdf-converter-client
+    image: pdf-converter:client
+    build:
+      context: ./../../frontend/server
+      dockerfile: ../../deploy/docker/client/Dockerfile
+    volumes:
+      - $PWD/../../frontend/server/src:/home/node/src
+    depends_on:
+      - "api"
+    ports:
+      - "5443:3000"
+    stdin_open: true
+
+  api:
+    container_name: pdf-converter-api
+    image: pdf-converter:api
+    build:
+      context: ./../../backend/express
+      dockerfile: ../../deploy/docker/api/Dockerfile
+    volumes:
+      - $PWD/../../backend/express/src:/home/node/src
+    ports:
+      - "4443:4443"
+
