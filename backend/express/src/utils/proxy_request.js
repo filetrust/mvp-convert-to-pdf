@@ -27,7 +27,7 @@ const proxy_request = (client_req, client_res, next)=>{
         headers : client_req.headers
     };
 
-    const proxy = https.request(options, function (res) {
+    const proxy = http.request(options, function (res) {
         client_res.writeHead(res.statusCode, res.headers)
         res.pipe(client_res, {
             end: true
