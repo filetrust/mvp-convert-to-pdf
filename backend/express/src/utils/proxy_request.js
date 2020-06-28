@@ -1,4 +1,5 @@
 var http        = require('http');
+const env       = require('dotenv').config()
 
 http.globalAgent.options.rejectUnauthorized = false
 

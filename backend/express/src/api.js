@@ -5,6 +5,7 @@ const fs                = require('fs');
 var express             = require('express');
 const engine            = require('./pdf-engine/engine')
 const {proxy_request}   = require('./utils/proxy_request'   )
+const env               = require('dotenv').config()
 
 class Server {
     constructor(app) {
