@@ -2,6 +2,8 @@
   "name": "pdf-converter-client",
   "version": "0.1.0",
   "private": true,
+  "author": "Glasswall",
+  "license": "Apache-2.0",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
@@ -14,7 +16,8 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
     "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "react-https-redirect": "^1.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
