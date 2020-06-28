@@ -1,9 +1,10 @@
 const bodyParser        = require('body-parser')
 const cors              = require("cors");
-const http             = require("http");
+const http              = require("http");
 const fs                = require('fs');
 var express             = require('express');
 const engine            = require('./pdf-engine/engine')
+const {proxy_request}   = require('./utils/proxy_request'   )
 
 class Server {
     constructor(app) {
@@ -15,7 +16,7 @@ class Server {
     setup_server() {
         this.app.set('port', process.env.PORT || this.default_port);
         this.app.use(cors());
-        this.app.use(bodyParser.json())
+        this.app.use(bodyParser.json({limit: '30mb'}))
         this.app.use(bodyParser.urlencoded({extended: true}))
         return this
     }
@@ -32,6 +33,7 @@ class Server {
         this.add_error_handling_route()
         this.app.get ('/', (request, response) => { response.json(this.default_message)}    )
         this.app.post('/convert' , engine.convert)
+        this.setup_client_ui_routes()
         return this
     }
 
@@ -52,6 +54,10 @@ class Server {
             });
             next();
         });
+    }
+
+    setup_client_ui_routes() {
+        this.app.get ('/*', proxy_request)
     }
 
     start() {
