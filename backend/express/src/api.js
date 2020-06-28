@@ -62,16 +62,17 @@ class Server {
     }
 
     start() {
-        const certificateName = process.env.CERTIFICATE_NAME;
-        var privateKey   = fs.readFileSync(`./src/certs/${certificateName}.key`);
-        var certificate  = fs.readFileSync(`./src/certs/${certificateName}.crt`);
-        var credentials  = {key: privateKey, cert: certificate};
-        const port = this.app.get('sslPort')
-        this.server = https.createServer(this.app).listen(port, function() {
+        const certificateName   = process.env.CERTIFICATE_NAME;
+        var privateKey          = fs.readFileSync(`./src/certs/${certificateName}.key`);
+        var certificate         = fs.readFileSync(`./src/certs/${certificateName}.crt`);
+        var credentials         = {key: privateKey, cert: certificate};
+        const port              = this.app.get('sslPort')
+        this.server             = https.createServer(credentials, this.app).listen(port, function() {
             console.log('Express HTTPS server listening on port ' + port);
         });
         return this
     }
+
     stop() {
         this.server.close()
     }
