@@ -31,7 +31,7 @@ class Server {
     setup_routes() {
         this.add_logging_route()
         this.add_error_handling_route()
-        this.app.get ('/', (request, response) => { response.json(this.default_message)}    )
+        this.app.get ('/api', (request, response) => { response.json(this.default_message)}    )
         this.app.post('/convert' , engine.convert)
         this.setup_client_ui_routes()
         return this
