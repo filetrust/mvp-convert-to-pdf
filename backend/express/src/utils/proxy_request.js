@@ -1,7 +1,7 @@
-var http        = require('http');
+var https       = require('https');
 const env       = require('dotenv').config()
 
-http.globalAgent.options.rejectUnauthorized = false
+https.globalAgent.options.rejectUnauthorized = false
 
 const proxy_config = {
     client_host : process.env.REACT_CLIENT_HOST ,
@@ -28,7 +28,7 @@ const proxy_request = (client_req, client_res, next)=>{
         headers : client_req.headers
     };
 
-    const proxy = http.request(options, function (res) {
+    const proxy = https.request(options, function (res) {
         client_res.writeHead(res.statusCode, res.headers)
         res.pipe(client_res, {
             end: true
