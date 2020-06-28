@@ -1,6 +1,6 @@
 const bodyParser        = require('body-parser')
 const cors              = require("cors");
-const http              = require("http");
+const https             = require("https");
 const fs                = require('fs');
 var express             = require('express');
 const engine            = require('./pdf-engine/engine')
@@ -15,7 +15,7 @@ class Server {
     }
 
     setup_server() {
-        this.app.set('port', process.env.PORT || this.default_port);
+        this.app.set('sslPort', process.env.PORT || this.default_port);
         this.app.use(cors());
         this.app.use(bodyParser.json({limit: '30mb'}))
         this.app.use(bodyParser.urlencoded({extended: true}))
@@ -62,9 +62,13 @@ class Server {
     }
 
     start() {
-        const port = this.app.get('port')
-        this.server = http.createServer(this.app).listen(port, function() {
-            console.log('Express HTTP server listening on port ' + port);
+        const certificateName = process.env.CERTIFICATE_NAME;
+        var privateKey   = fs.readFileSync(`./src/certs/${certificateName}.key`);
+        var certificate  = fs.readFileSync(`./src/certs/${certificateName}.crt`);
+        var credentials  = {key: privateKey, cert: certificate};
+        const port = this.app.get('sslPort')
+        this.server = https.createServer(this.app).listen(port, function() {
+            console.log('Express HTTPS server listening on port ' + port);
         });
         return this
     }

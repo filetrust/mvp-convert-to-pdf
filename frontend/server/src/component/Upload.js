@@ -8,7 +8,7 @@ import axios from 'axios'
 
 const Loader = new CommonServices();
 
-const SERVER_URL = 'http://'+process.env.REACT_APP_API_HOST+":"+process.env.REACT_APP_API_PORT+"/";
+const SERVER_URL = 'https://'+process.env.REACT_APP_API_HOST+":"+process.env.REACT_APP_API_PORT+"/";
 
 class Upload extends React.Component {
 
