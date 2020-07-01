@@ -23,4 +23,6 @@ aws lambda add-layer-version-permission \
     --content S3Bucket=lambda-libreoffice-demo-aa1,S3Key="$LAYER_FILENAME"
     )"
 
+print ($"$S3Key")
+
 sleep 9000
