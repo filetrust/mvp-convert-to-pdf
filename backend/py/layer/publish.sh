@@ -9,7 +9,7 @@ S3BUCKET='lambda-libreoffice-demo-aa1'
 aws s3 cp ./"$LAYER_FILENAME" s3://"$S3BUCKET"/"$LAYER_FILENAME"
 
 aws lambda add-layer-version-permission \
-  --region "$TARGET_REGION" \
+  --region "" \
   --layer-name "$LAYER_NAME" \
   --statement-id sid1 \
   --action lambda:GetLayerVersion \
