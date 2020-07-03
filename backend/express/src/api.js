@@ -1,9 +1,11 @@
 const bodyParser        = require('body-parser')
 const cors              = require("cors");
-const http             = require("http");
+const https             = require("https");
 const fs                = require('fs');
 var express             = require('express');
 const engine            = require('./pdf-engine/engine')
+const {proxy_request}   = require('./utils/proxy_request'   )
+const env               = require('dotenv').config()
 
 class Server {
     constructor(app) {
@@ -13,9 +15,9 @@ class Server {
     }
 
     setup_server() {
-        this.app.set('port', process.env.PORT || this.default_port);
+        this.app.set('sslPort', process.env.PORT || this.default_port);
         this.app.use(cors());
-        this.app.use(bodyParser.json())
+        this.app.use(bodyParser.json({limit: '30mb'}))
         this.app.use(bodyParser.urlencoded({extended: true}))
         return this
     }
@@ -30,8 +32,9 @@ class Server {
     setup_routes() {
         this.add_logging_route()
         this.add_error_handling_route()
-        this.app.get ('/', (request, response) => { response.json(this.default_message)}    )
+        this.app.get ('/api', (request, response) => { response.json(this.default_message)}    )
         this.app.post('/convert' , engine.convert)
+        this.setup_client_ui_routes()
         return this
     }
 
@@ -54,13 +57,22 @@ class Server {
         });
     }
 
+    setup_client_ui_routes() {
+        this.app.get ('/*', proxy_request)
+    }
+
     start() {
-        const port = this.app.get('port')
-        this.server = http.createServer(this.app).listen(port, function() {
-            console.log('Express HTTP server listening on port ' + port);
+        const certificateName   = process.env.CERTIFICATE_NAME;
+        var privateKey          = fs.readFileSync(`./src/certs/${certificateName}.key`);
+        var certificate         = fs.readFileSync(`./src/certs/${certificateName}.crt`);
+        var credentials         = {key: privateKey, cert: certificate};
+        const port              = this.app.get('sslPort')
+        this.server             = https.createServer(credentials, this.app).listen(port, function() {
+            console.log('Express HTTPS server listening on port ' + port);
         });
         return this
     }
+
     stop() {
         this.server.close()
     }
