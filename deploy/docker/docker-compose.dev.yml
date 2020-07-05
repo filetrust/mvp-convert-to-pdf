@@ -9,7 +9,7 @@ services:
     volumes:
       - $PWD/../../frontend/server/src:/home/node/src
     depends_on:
-      - "api"
+      - "pdf-api"
     ports:
       - "5443:5443"
     stdin_open: true
