@@ -1,6 +1,6 @@
 version: '3.3'
 services:
-  client:
+  pdf-client:
     container_name: pdf-converter-client
     image: pdf-converter:client
     build:
@@ -14,7 +14,7 @@ services:
       - "5443:5443"
     stdin_open: true
 
-  api:
+  pdf-api:
     container_name: pdf-converter-api
     image: pdf-converter:api
     build:
