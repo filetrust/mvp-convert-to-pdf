@@ -28,14 +28,17 @@ async function convert_to_img(request, response){
         return;
     }
     writeFileSync(`/tmp/${filename_sanitized}`, fileBuffer);
+    console.log('Wrote tmp pdf at '+filename_sanitized)
     var pdfImage = new PDFImage(`/tmp/${filename_sanitized}` , {
       combinedImage: true
     });
     pdfImage.convertFile().then(function (imagePaths) {
-        // /tmp/slide.png
         console.log("Image converted successfully!");
-        const imgBytes = readFileSync('/tmp'+filename_sanitized.split('.')[0]+'.png')
-        response.status(200).send({'filename' : filename_sanitized+'.png' , "base64file" : Buffer.from(imgBytes).toString('base64')})
+        var result_path = '/tmp/'+filename_sanitized.split('.')[0]+'.png';
+        console.log('result_path '+result_path)
+        const imgBytes = readFileSync(result_path)
+        console.log("Returning response!");
+        response.status(200).send({'filename' : filename_sanitized.split('.')[0]+'.png' , "base64file" : Buffer.from(imgBytes).toString('base64')})
     });
 }
 
