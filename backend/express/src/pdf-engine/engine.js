@@ -35,7 +35,7 @@ async function convert_to_img(request, response){
       format        : "png",                // output file format
       size          : "600x600"             // output size in pixels
     });
-    pdf2pic.convertBulk('/tmp/'+"/"+filename_sanitized, -1).then((resolve) => {
+    pdf2pic.convertBulk('/tmp/'+filename_sanitized, -1).then((resolve) => {
       console.log("Image converted successfully!");
       const imgBytes = readFileSync('/tmp'+filename_sanitized+'.png')
       response.status(200).send({'filename' : filename_sanitized+'.png' , "base64file" : Buffer.from(imgBytes).toString('base64')})
