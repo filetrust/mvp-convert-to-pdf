@@ -4,7 +4,7 @@ const path                                          = require("path");
 const { execSync }                                  = require("child_process");
 const libre                                         = require('libreoffice-convert');
 const REGEX_SAFE_FILE_NAME                          = /[^a-zA-Z0-9-_\.]/g
-const PDF2Pic   = require("pdf2pic");
+var PDFImage                                        = require("pdf-image").PDFImage;
 
 const MAX_FILE_SIZE                                 = 30 * 1024 * 1024;
 
@@ -28,18 +28,14 @@ async function convert_to_img(request, response){
         return;
     }
     writeFileSync(`/tmp/${filename_sanitized}`, fileBuffer);
-    const pdf2pic = new PDF2Pic({
-      density       : 100,                  // output pixels per inch
-      savename      : filename_sanitized,   // output file name
-      savedir       : '/tmp',               // output file location
-      format        : "png",                // output file format
-      size          : "600x600"             // output size in pixels
+    var pdfImage = new PDFImage(`/tmp/${filename_sanitized}` , {
+      combinedImage: true
     });
-    pdf2pic.convertBulk('/tmp/'+filename_sanitized, -1).then((resolve) => {
-      console.log("Image converted successfully!");
-      const imgBytes = readFileSync('/tmp'+filename_sanitized+'.png')
-      response.status(200).send({'filename' : filename_sanitized+'.png' , "base64file" : Buffer.from(imgBytes).toString('base64')})
-      return resolve;
+    pdfImage.convertFile().then(function (imagePaths) {
+        // /tmp/slide.png
+        console.log("Image converted successfully!");
+        const imgBytes = readFileSync('/tmp'+filename_sanitized.split('.')[0]+'.png')
+        response.status(200).send({'filename' : filename_sanitized+'.png' , "base64file" : Buffer.from(imgBytes).toString('base64')})
     });
 }
 

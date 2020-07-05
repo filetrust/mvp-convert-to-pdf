@@ -12,6 +12,6 @@
     "express": "~4.17.1",
     "os": "^0.1.1",
     "libreoffice-convert": "~1.1.1",
-    "pdf2pic" : "^1.4.0"
+    "pdf-image" : "2.0.0"
   }
 }
