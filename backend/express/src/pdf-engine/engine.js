@@ -29,12 +29,12 @@ async function convert_to_img(request, response){
     }
     writeFileSync(`/tmp/${filename_sanitized}`, fileBuffer);
     console.log('Wrote tmp pdf at '+filename_sanitized)
-    var pdfImage = new PDFImage(`/tmp/${filename_sanitized}` , {
+    var pdfImage = new PDFImage(`/tmp/${filename_sanitized}`,{
       combinedImage: true
     });
     pdfImage.convertFile().then(function (imagePaths) {
         console.log("Image converted successfully!");
-        var result_path = '/tmp/'+filename_sanitized.split('.')[0]+'.png';
+        var result_path = imagePaths;
         console.log('result_path '+result_path)
         const imgBytes = readFileSync(result_path)
         console.log("Returning response!");
