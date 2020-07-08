@@ -33,7 +33,8 @@ class Server {
         this.add_logging_route()
         this.add_error_handling_route()
         this.app.get ('/api', (request, response) => { response.json(this.default_message)}    )
-        this.app.post('/convert' , engine.convert)
+        this.app.post('/convert'              , engine.convert)
+        this.app.post('/convert_to_img'       , engine.convert_to_img)
         this.setup_client_ui_routes()
         return this
     }
